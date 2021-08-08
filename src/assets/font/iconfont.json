@@ -1,0 +1,23 @@
+{
+  "id": "2723320",
+  "name": "电商后台管理系统",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4312651",
+      "name": "登录密码",
+      "font_class": "mima",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "6862010",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "e897",
+      "unicode_decimal": 59543
+    }
+  ]
+}
