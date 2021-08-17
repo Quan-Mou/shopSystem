@@ -66,12 +66,11 @@ export default {
       this.$refs.form.validate(async ret => {
         if (!ret) return;
         this.$http.post("/login", this.login_form).then(ret => {
-          console.log(ret);
           if (ret.data.meta.status !== 200) {
             this.$message.error("登录失败，密码错误！！");
           } else if (ret.data.meta.status == 200) {
             this.$message.success("登录成功！");
-            console.log("a");
+            console.log(ret);
             sessionStorage.setItem("token", ret.data.data.token);
             this.$router.push("/home");
           }

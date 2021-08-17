@@ -7,12 +7,17 @@ import './pulgin/element'
 import './assets/font/iconfont.css'
 // import request from './netword/request'
 import axios from 'axios'
+axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1'
+axios.interceptors.request.use(config => {
+  config.headers.Authorization = sessionStorage.getItem('token')
+  return config;
+})
 Vue.prototype.$http = axios
 // import ElementUI from 'element-ui'; // 2.1引入结构
 // import 'element-ui/lib/theme-chalk/index.css'; // 2.2引入样式
 /* eslint-disable no-new */
 // Vue.use(ElementUI)
-axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1'
+
 new Vue({
   el: '#app',
   router,
