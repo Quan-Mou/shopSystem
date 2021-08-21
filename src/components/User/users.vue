@@ -92,6 +92,7 @@
                 type="warning "
                 icon="el-icon-setting"
                 size="mini"
+                @click="allotUser(scope.row)"
               ></el-button>
             </el-tooltip>
           </template>
@@ -170,6 +171,37 @@
           <el-button type="primary" @click="YesModify()">确 定</el-button>
         </span>
       </el-dialog>
+      <!-- 分配权限弹出框 -->
+      <el-dialog
+        title="分配角色"
+        :visible.sync="allotUserVisible"
+        width="50%"
+        @close="closeAllotRoles"
+      >
+        <div class="allotRoles">
+          <p>当前用户：{{ allotUserInfo.username }}</p>
+          <p>当前角色：{{ allotUserInfo.role_name }}</p>
+          <p>
+            <span>分配新角色：</span
+            ><el-select v-model="allotRolesVal" placeholder="请选择">
+              <el-option
+                v-for="item in rolesList"
+                :key="item.id"
+                :label="item.roleName"
+                :value="item.id"
+              >
+              </el-option>
+            </el-select>
+          </p>
+        </div>
+
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="allotUserVisible = false">取 消</el-button>
+          <el-button type="primary" @click="YesAllotRolesRights"
+            >确 定</el-button
+          >
+        </span>
+      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -243,7 +275,18 @@ export default {
           { required: true, message: "请输入手机号", trigger: "blur" },
           { validator: checkMobile, trigger: "blur" }
         ]
-      }
+      },
+      // 分配角色的显示与隐藏
+      allotUserVisible: false,
+
+      allotUserInfo: {
+        username: "",
+        role_name: ""
+      },
+      // 角色列表
+      rolesList: [],
+      // 分配角色选中的值 存的是id
+      allotRolesVal: ""
     };
   },
   created() {
@@ -255,7 +298,6 @@ export default {
       const { data: ret } = await this.$http.get("/users", {
         params: this.userListParams
       });
-
       this.userList = ret.data.users;
       this.total = ret.data.total;
     },
@@ -268,7 +310,6 @@ export default {
       this.getUserList();
     },
     async switchChange(userList) {
-      console.log(userList);
       const { data: ret } = await this.$http.put(
         `/users/${userList.id}/state/${userList.mg_state}`
       );
@@ -302,6 +343,7 @@ export default {
         return this.$message.error("数据获取失败！");
       }
       this.ModifyData = res.data;
+      // console.log(this.ModifyData);
     },
     // 关闭修改用户后的重置
     closeModify() {
@@ -338,7 +380,7 @@ export default {
       });
     },
     async deleteBtn(id) {
-      console.log(id);
+      console.log(this.userList);
       const res = await this.$confirm(
         "此操作将永久删除该用户, 是否继续?",
         "提示",
@@ -357,6 +399,32 @@ export default {
       }
       this.$message.success(ret.meta.msg);
       this.getUserList();
+    },
+    async allotUser(row) {
+      // 获取角色数据
+      const { data: ret } = await this.$http.get("/roles");
+      this.rolesList = ret.data;
+      this.allotUserVisible = true;
+      // row当前用户信息
+      this.allotUserInfo = row;
+    },
+    // 关闭分配角色
+    closeAllotRoles() {
+      this.allotRolesVal = "";
+    },
+    // 确定分配角色权限
+    async YesAllotRolesRights() {
+      if (!this.allotRolesVal) return this.$message.error("请选择角色！");
+      const { data: ret } = await this.$http.put(
+        `users/${this.allotUserInfo.id}/role`,
+        {
+          rid: this.allotRolesVal
+        }
+      );
+      if (ret.meta.status !== 200) return this.$message.error(ret.meta.msg);
+      this.$message.success("更新角色成功！");
+      this.getUserList();
+      this.allotUserVisible = false;
     }
   }
 };
@@ -365,13 +433,15 @@ export default {
 <style lang="less" scoped>
 .el-card {
   .el-table {
-    margin-top: 15px;
     .el-table-column {
-      height: 52px;
+      height: 70px;
     }
   }
 }
 .el-pagination {
   margin-top: 20px;
+}
+.allotRoles p {
+  margin: 10px 0px;
 }
 </style>

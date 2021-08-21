@@ -89,6 +89,7 @@ export default {
         this.asideList = res.data.data;
       });
       // this.$http.get("/menus");
+      // console.log(this.asideList);
     },
     foldBtn() {
       // this.fold

@@ -4,7 +4,7 @@ import Router from "vue-router";
 import login from "@/components/Login/login";
 import home from "@/components/Home/home";
 const Default = () => import("@/components/default");
-const Roles = () => import('@/components/demo')
+const Roles = () => import('@/components/Rights/rolesList')
 const User = () => import('@/components/User/users')
 
 

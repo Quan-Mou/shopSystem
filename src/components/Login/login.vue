@@ -74,8 +74,17 @@ export default {
             sessionStorage.setItem("token", ret.data.data.token);
             this.$router.push("/home");
           }
+          console.log(ret);
         });
+
         // const { data: ret } = await this.$http.post("/login", this.login_form);
+        // console.log(ret);
+
+        if (!ret) {
+          return;
+        }
+        const { data: res } = await this.$http.post("/login", this.login_form);
+        console.log(res);
       });
     }
   }

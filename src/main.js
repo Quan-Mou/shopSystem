@@ -7,7 +7,13 @@ import './pulgin/element'
 import './assets/font/iconfont.css'
 // import request from './netword/request'
 import axios from 'axios'
-axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1'
+// axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1'
+// axios.defaults.baseURL = 'http://timemeetyou.com:8889/api/private/v1/'
+
+axios.defaults.baseURL = 'http://39.99.150.254:8801/api/private/v1/'
+
+http://39.99.150.254:8801/api/private/v1/
+
 axios.interceptors.request.use(config => {
   config.headers.Authorization = sessionStorage.getItem('token')
   return config;
@@ -17,7 +23,8 @@ Vue.prototype.$http = axios
 // import 'element-ui/lib/theme-chalk/index.css'; // 2.2引入样式
 /* eslint-disable no-new */
 // Vue.use(ElementUI)
-
+// 全局事件总线
+Vue.prototype.$bus = new Vue();
 new Vue({
   el: '#app',
   router,
