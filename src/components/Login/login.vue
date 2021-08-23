@@ -56,6 +56,11 @@ export default {
       }
     };
   },
+  created() {
+    console.log(
+      "商城后台管理系统，使用vue全家桶+elementUI+axios搭建的SPA，数据库和后台部署在本服务器。完成了用户管理，权限管理，商品管理，订单管理和数据统计的功能，包含各部分前端向数据库的增删改查的请求。——————by权某人"
+    );
+  },
   methods: {
     reset() {
       // this.$refs.form; 得到的是 这个组件
@@ -70,21 +75,15 @@ export default {
             this.$message.error("登录失败，密码错误！！");
           } else if (ret.data.meta.status == 200) {
             this.$message.success("登录成功！");
-            console.log(ret);
             sessionStorage.setItem("token", ret.data.data.token);
             this.$router.push("/home");
           }
-          console.log(ret);
         });
-
-        // const { data: ret } = await this.$http.post("/login", this.login_form);
-        // console.log(ret);
 
         if (!ret) {
           return;
         }
         const { data: res } = await this.$http.post("/login", this.login_form);
-        console.log(res);
       });
     }
   }

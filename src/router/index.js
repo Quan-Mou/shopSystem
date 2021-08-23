@@ -6,9 +6,8 @@ import home from "@/components/Home/home";
 const Default = () => import("@/components/default");
 const Roles = () => import('@/components/Rights/rolesList')
 const User = () => import('@/components/User/users')
-
-
 const RightList = () => import('@/components/Rights/Rightlist')
+const Cate = () => import('@/components/Goods/cate')
 Vue.use(Router);
 let routes = [
   {
@@ -39,6 +38,10 @@ let routes = [
       {
         path: '/rights',
         component: RightList
+      },
+      {
+        path: '/categories',
+        component: Cate
       }
     ]
   }

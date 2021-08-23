@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Button, Form, FormItem, Input, Message, Container, Header, Aside, Main, Submenu, MenuItemGroup, MenuItem, Menu, Breadcrumb, BreadcrumbItem, Card, Autocomplete, Row, Col, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, MessageBox, Tag, Tree, Select, Option } from 'element-ui'
+import { Button, Form, FormItem, Input, Message, Container, Header, Aside, Main, Submenu, MenuItemGroup, MenuItem, Menu, Breadcrumb, BreadcrumbItem, Card, Autocomplete, Row, Col, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, MessageBox, Tag, Tree, Select, Option, Cascader } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Button)
 Vue.use(Form)
@@ -29,6 +29,7 @@ Vue.use(Tag)
 Vue.use(Tree)
 Vue.use(Option)
 Vue.use(Select)
+Vue.use(Cascader)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
 // Breadcrumb

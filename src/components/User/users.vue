@@ -89,6 +89,7 @@
               :enterable="false"
             >
               <el-button
+                编辑
                 type="warning "
                 icon="el-icon-setting"
                 size="mini"
@@ -298,6 +299,7 @@ export default {
       const { data: ret } = await this.$http.get("/users", {
         params: this.userListParams
       });
+
       this.userList = ret.data.users;
       this.total = ret.data.total;
     },
